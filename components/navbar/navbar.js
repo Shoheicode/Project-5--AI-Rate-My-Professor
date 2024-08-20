@@ -45,11 +45,11 @@ export default function NavBar(){
             </ListItemButton>
           </ListItem>
           <ListItem key={"Talk Chat Bot"} disablePadding>
-            <ListItemButton href="/generate">
+            <ListItemButton href="/ChatBot">
               <ListItemIcon>
                 <CreateIcon></CreateIcon>
               </ListItemIcon>
-              <ListItemText primary={"Create"} />
+              <ListItemText primary={"Talk Chat Bot"} />
             </ListItemButton>
           </ListItem>
           <ListItem key={"Rate my Professor"} disablePadding>
@@ -57,7 +57,7 @@ export default function NavBar(){
               <ListItemIcon>
                 <SortIcon></SortIcon>
               </ListItemIcon>
-              <ListItemText primary={"Load"} />
+              <ListItemText primary={"Rate my Professor"} />
             </ListItemButton>
           </ListItem>
           <ListItem key={"Saved Professors"} disablePadding>
@@ -65,11 +65,11 @@ export default function NavBar(){
               <ListItemIcon>
                 <SortIcon></SortIcon>
               </ListItemIcon>
-              <ListItemText primary={"Load"} />
+              <ListItemText primary={"Saved Professors"} />
             </ListItemButton>
           </ListItem>
           <ListItem key={"About"} disablePadding>
-            <ListItemButton href="/flashcards">
+            <ListItemButton href="/SavedProfessors">
               <ListItemIcon>
                 <SortIcon></SortIcon>
               </ListItemIcon>
@@ -151,7 +151,7 @@ export default function NavBar(){
                     </IconButton> */}
                     <Link href={"/"} style={{ flexGrow: 1 }}>
                       <Typography variant="h6">
-                        AStar Flashcard
+                        AStar Rate my Professor
                       </Typography>
                     </Link>
                     <SignedOut>
@@ -194,7 +194,7 @@ export default function NavBar(){
             </IconButton>
             <Link href={"/"} style={{ flexGrow: 1 }}>
               <Typography variant="h6">
-                AStar Flashcard
+                AStar Rate my Professor
               </Typography>
             </Link>
             <SignedOut>
