@@ -61,7 +61,7 @@ export default function NavBar(){
             </ListItemButton>
           </ListItem>
           <ListItem key={"Saved Professors"} disablePadding>
-            <ListItemButton href="/flashcards">
+            <ListItemButton href="/SavedProfessors">
               <ListItemIcon>
                 <SortIcon></SortIcon>
               </ListItemIcon>
