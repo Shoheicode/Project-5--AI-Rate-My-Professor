@@ -10,6 +10,8 @@ export default function Home() {
     },
   ]);
   const [message, setMessage] = useState("");
+  const [firstMessage, setFirstMessage] = useState("");
+  let ranFirst = false;
 
   const sendMessage = async () => {
     setMessage("");
@@ -37,14 +39,21 @@ export default function Home() {
         const text = decoder.decode(value || new Uint8Array(), {
           stream: true,
         });
-        setMessages((messages) => {
-          let lastMessage = messages[messages.length - 1];
-          let otherMessages = messages.slice(0, messages.length - 1);
-          return [
-            ...otherMessages,
-            { ...lastMessage, content: lastMessage.content + text },
-          ];
-        });
+
+        if (!ranFirst) {
+          ranFirst = true;
+          setFirstMessage(JSON.parse(text));
+        } else {
+          setMessages((messages) => {
+            let lastMessage = messages[messages.length - 1];
+            let otherMessages = messages.slice(0, messages.length - 1);
+            return [
+              ...otherMessages,
+              { ...lastMessage, content: lastMessage.content + text },
+            ];
+          });
+        }
+
         return reader.read().then(processText);
       });
     });
@@ -83,6 +92,7 @@ export default function Home() {
                   message.role === "assistant" ? "flex-start" : "flex-end"
                 }
               >
+                {console.log(firstMessage)}
                 <Box
                   bgcolor={
                     message.role === "assistant"
@@ -94,7 +104,7 @@ export default function Home() {
                   p={3}
                 >
                   {message.content.split("\n").map((line, i) => (
-                    <Fragment key={index}>
+                    <Fragment key={i}>
                       {line}
                       <br />
                     </Fragment>
@@ -112,9 +122,6 @@ export default function Home() {
             />
             <Button variant="contained" onClick={sendMessage}>
               Send
-            </Button>
-            <Button variant="contained" onClick={() => console.log(messages)}>
-              click
             </Button>
           </Stack>
         </Stack>
