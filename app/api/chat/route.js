@@ -70,6 +70,7 @@ export async function POST(req) {
         for await (const chunk of completion) {
           const content = chunk.choices[0]?.delta?.content;
           if (content) {
+            console.log(content)
             const text = encoder.encode(content);
             controller.enqueue(text);
           }
