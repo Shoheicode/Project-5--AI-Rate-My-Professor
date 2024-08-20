@@ -1,64 +1,66 @@
-'use client'
-import NavBar from '@/components/navbar/navbar'
-import { Box, Button, Stack, TextField } from '@mui/material'
-import Head from 'next/head'
-import { useState } from 'react'
+"use client";
+import { Box, Button, Stack, TextField } from "@mui/material";
+import { useState, Fragment } from "react";
 
 export default function Home() {
   const [messages, setMessages] = useState([
     {
-      role: 'assistant',
+      role: "assistant",
       content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
     },
-  ])
-  const [message, setMessage] = useState('')
+  ]);
+  const [message, setMessage] = useState("");
+  const [firstMessage, setFirstMessage] = useState("");
+  let ranFirst = false;
 
   const sendMessage = async () => {
-    setMessage('')
+    setMessage("");
     setMessages((messages) => [
       ...messages,
-      {role: 'user', content: message},
-      {role: 'assistant', content: ''},
-    ])
-  
-    const response = fetch('/api/chat', {
-      method: 'POST',
+      { role: "user", content: message },
+      { role: "assistant", content: "" },
+    ]);
+
+    const response = fetch("/api/chat", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify([...messages, {role: 'user', content: message}]),
+      body: JSON.stringify([...messages, { role: "user", content: message }]),
     }).then(async (res) => {
-      const reader = res.body.getReader()
-      const decoder = new TextDecoder()
-      let result = ''
-  
-      return reader.read().then(function processText({done, value}) {
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let result = "";
+
+      return reader.read().then(function processText({ done, value }) {
         if (done) {
-          return result
+          return result;
         }
-        const text = decoder.decode(value || new Uint8Array(), {stream: true})
-        setMessages((messages) => {
-          let lastMessage = messages[messages.length - 1]
-          let otherMessages = messages.slice(0, messages.length - 1)
-          return [
-            ...otherMessages,
-            {...lastMessage, content: lastMessage.content + text},
-          ]
-        })
-        return reader.read().then(processText)
-      })
-    })
-  }
+        const text = decoder.decode(value || new Uint8Array(), {
+          stream: true,
+        });
+
+        if (!ranFirst) {
+          ranFirst = true;
+          setFirstMessage(JSON.parse(text));
+        } else {
+          setMessages((messages) => {
+            let lastMessage = messages[messages.length - 1];
+            let otherMessages = messages.slice(0, messages.length - 1);
+            return [
+              ...otherMessages,
+              { ...lastMessage, content: lastMessage.content + text },
+            ];
+          });
+        }
+
+        return reader.read().then(processText);
+      });
+    });
+  };
 
   return (
-    <Box>
-      <Head>
-        <title>AStar Rate my Professor</title>
-        <meta name="description" content="AStar Rate my Professor" />
-      </Head>
-
-      <NavBar />
-      
+    <>
       <Box
         width="100vw"
         height="100vh"
@@ -68,7 +70,7 @@ export default function Home() {
         alignItems="center"
       >
         <Stack
-          direction={'column'}
+          direction={"column"}
           width="500px"
           height="700px"
           border="1px solid black"
@@ -76,7 +78,7 @@ export default function Home() {
           spacing={3}
         >
           <Stack
-            direction={'column'}
+            direction={"column"}
             spacing={2}
             flexGrow={1}
             overflow="auto"
@@ -87,25 +89,31 @@ export default function Home() {
                 key={index}
                 display="flex"
                 justifyContent={
-                  message.role === 'assistant' ? 'flex-start' : 'flex-end'
+                  message.role === "assistant" ? "flex-start" : "flex-end"
                 }
               >
+                {console.log(firstMessage)}
                 <Box
                   bgcolor={
-                    message.role === 'assistant'
-                      ? 'primary.main'
-                      : 'secondary.main'
+                    message.role === "assistant"
+                      ? "primary.main"
+                      : "secondary.main"
                   }
                   color="white"
-                  borderRadius={16}
+                  borderRadius={10}
                   p={3}
                 >
-                  {message.content}
+                  {message.content.split("\n").map((line, i) => (
+                    <Fragment key={i}>
+                      {line}
+                      <br />
+                    </Fragment>
+                  ))}
                 </Box>
               </Box>
             ))}
           </Stack>
-          <Stack direction={'row'} spacing={2}>
+          <Stack direction={"row"} spacing={2}>
             <TextField
               label="Message"
               fullWidth
@@ -118,6 +126,6 @@ export default function Home() {
           </Stack>
         </Stack>
       </Box>
-    </Box>
+    </>
   );
 }
