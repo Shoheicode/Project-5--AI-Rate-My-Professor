@@ -39,13 +39,13 @@ export async function POST(req) {
   let resultString = "";
   results.matches.forEach((match) => {
     jsonArr.push({
-      id: match.id,
+      professor: match.metadata.professor,
       stars: match.metadata.stars,
       subject: match.metadata.subject,
     });
     resultString += `
         Returned Results:
-        Professor: ${match.id}
+        Professor: ${match.metadata.professor}
         Review: ${match.metadata.stars}
         Subject: ${match.metadata.subject}
         Stars: ${match.metadata.stars}
