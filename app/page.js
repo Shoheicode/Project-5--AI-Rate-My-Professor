@@ -123,6 +123,25 @@ export default function Home() {
             <Button variant="contained" onClick={sendMessage}>
               Send
             </Button>
+            {/* <Button
+              variant="contained"
+              onClick={() => {
+                fetch("/api/addSingleReview", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({
+                    professor: "prof",
+                    review: "man he really",
+                    subject: "Love",
+                    stars: 1041342,
+                  }),
+                }).then((res) => {});
+              }}
+            >
+              PRESS
+            </Button> */}
           </Stack>
         </Stack>
       </Box>
