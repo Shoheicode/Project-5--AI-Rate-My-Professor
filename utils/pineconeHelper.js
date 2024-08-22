@@ -7,7 +7,7 @@ export async function createPCReviewRecord(data) {
   const openai = new OpenAI();
   const embedding = await openai.embeddings.create({
     model: "text-embedding-3-small",
-    input: `${reviewText} Professor ${data['professor']} teaches the ${data['subject']} subject with ${data['stars']} stars`,
+    input: `${reviewText} Professor ${data["professor"]} teaches the ${data["subject"]} subject with ${data["stars"]} stars`,
     encoding_format: "float",
   });
 
