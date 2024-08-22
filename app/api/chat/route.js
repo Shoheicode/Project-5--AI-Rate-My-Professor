@@ -29,7 +29,7 @@ export async function POST(req) {
 
   // query using the embedding
   const results = await index.query({
-    topK: 5,
+    topK: 3,
     includeMetadata: true,
     vector: embedding.data[0].embedding,
   });

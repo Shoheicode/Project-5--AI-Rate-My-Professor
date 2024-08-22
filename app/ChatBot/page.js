@@ -1,6 +1,10 @@
 "use client";
-import { Box, Button, Stack, TextField } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useState, Fragment } from "react";
+import { database } from "../firebase";
+import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
+import { useUser } from "@clerk/nextjs";
+import NavBar from "@/components/navbar/navbar";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -9,8 +13,9 @@ export default function Home() {
       content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
     },
   ]);
+  const { isLoaded, isSignedIn, user } = useUser()
   const [message, setMessage] = useState("");
-  const [firstMessage, setFirstMessage] = useState("");
+  const [firstMessage, setFirstMessage] = useState(null);
   let ranFirst = false;
 
   const sendMessage = async () => {
@@ -59,8 +64,51 @@ export default function Home() {
     });
   };
 
+  const saveProfessor = async (professor) => {
+    console.log("HIHIHIHIHI")
+    console.log(professor);
+
+    try {
+      const userDocRef = doc(collection(database, 'users'), user.id)
+      const userDocSnap = await getDoc(userDocRef)
+  
+      const batch = writeBatch(database)
+      
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data()
+        console.log(userData.Professor)
+        if (!userData.Professor.includes(professor['professor'])){
+          const updatedSets = [...(userData.Professor || []), professor['professor'] ]
+          batch.update(userDocRef, { Professor: updatedSets })
+        }
+        
+      } else {
+        batch.set(userDocRef, { Professor: [{ name: professor['professor'] }] })
+      }
+  
+      const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
+      const setDocSnap = await getDoc(userDocRef)
+      if(setDocSnap.exists()){
+        console.log("I EXIST! I AM INVINCIBLE")
+      }
+      batch.set(setDocRef, professor)
+  
+      await batch.commit()
+  
+      alert('Flashcards saved successfully!')
+      //handleCloseDialog()
+
+    } catch (error) {
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
+    }
+
+  };
+
   return (
-    <>
+    <Box>
+      <NavBar />
       <Box
         width="100vw"
         height="100vh"
@@ -84,6 +132,7 @@ export default function Home() {
             overflow="auto"
             maxHeight="100%"
           >
+            
             {messages.map((message, index) => (
               <Box
                 key={index}
@@ -92,7 +141,7 @@ export default function Home() {
                   message.role === "assistant" ? "flex-start" : "flex-end"
                 }
               >
-                {console.log(firstMessage)}
+                
                 <Box
                   bgcolor={
                     message.role === "assistant"
@@ -125,7 +174,28 @@ export default function Home() {
             </Button>
           </Stack>
         </Stack>
+        {firstMessage && <Box>
+            {//console.log("HIHIHIHIHHI")
+            }
+            {firstMessage.data.map((jsonFile, index) => (
+              <Box
+                key={index}
+
+              >
+                <Typography>
+                  {jsonFile['professor']}
+                </Typography>
+                <Button
+                  onClick={() => saveProfessor(jsonFile)}
+                >
+                  Press Button
+                </Button>
+              </Box>
+            ))
+            }
+          </Box>
+        }
       </Box>
-    </>
+    </Box>
   );
 }

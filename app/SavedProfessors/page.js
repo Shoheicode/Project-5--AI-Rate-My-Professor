@@ -5,7 +5,7 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import { useUser } from '@clerk/nextjs'
-import { collection, doc, getDoc, setDoc } from 'firebase/firestore'
+import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { database } from '../firebase'
 
 export default function Home() {
@@ -14,21 +14,27 @@ export default function Home() {
     const [professors, setProfessors] = useState([]);
 
     useEffect(() => {
-        async function getProfessors() {
-          //If there is no user, end the function
-          if (!user) return
-          const docRef = doc(collection(database, 'users'), user.id)
-          const docSnap = await getDoc(docRef)
-          
-          if (docSnap.exists()) {
-            const collections = docSnap.data().Professors || []
-            setProfessors(collections)
-          } else {
-            await setDoc(docRef, { Professors: [] })
-          }
-        }
-        getProfessors()
-      }, [user])
+      async function getFlashcard() {
+        if (!user) return
+        
+        const collectReference = collection(doc(collection(database, 'users'), user.id), 'Professor')
+        const docy = await getDocs(collectReference)
+
+        let list = []
+
+        docy.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          list.push(doc.data())
+        });
+
+        setProfessors(list)
+        
+        // const flashcds = docy
+        // console.log(flashcds)
+        // setProfessors(flashcds)
+      }
+      getFlashcard()
+    }, [user])
 
     return (
       <Box>
@@ -48,10 +54,34 @@ export default function Home() {
         >
           <Typography variant="h4" component="h1" gutterBottom id='generateText'>
             AStar Rate my Professor
-            {console.log(professors)}
           </Typography> 
           
         </Box>
+        {console.log(professors.length)}
+          
+          <Box>
+              {professors.map((val, index) => (
+                <Box
+                  key={index}
+                >
+                  <Typography variant='h1' color={"black"}>
+                    {console.log(val['professor'])}
+                    {val['professor']}
+                  </Typography>
+                  <Typography>
+                    {"Subject: " + val['subject']}
+                  </Typography>
+                  <Typography>
+                    {"Star: " + val['stars']}
+                  </Typography>
+                </Box>
+                  )
+                )
+              }
+            </Box>
+            <Typography>
+              HIHIHIHI
+            </Typography>
       </Box>
     );
 }

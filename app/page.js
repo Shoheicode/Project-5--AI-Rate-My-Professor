@@ -104,9 +104,6 @@ export default function Home() {
             >
               PRESS
             </Button> */}
-          </Stack>
-        </Stack>
       </Box>
-    </>
   );
 }
