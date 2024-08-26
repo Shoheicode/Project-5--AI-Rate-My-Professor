@@ -21,7 +21,7 @@ export default function Home() {
       <NavBar />
       <Box 
           width={"100%"}
-          height={"100vh"}
+          min-height={"100vh"}
           sx={{ textAlign: "center" }}
           bgcolor={"black"}  
           color={"white"}
@@ -54,12 +54,29 @@ export default function Home() {
 
         <Box 
           // sx={{ my: 6 }}
+          sx={
+            {
+              background: 'linear-gradient(70deg, rgba(255,77,0,1) 0%, rgba(255,249,2,1) 100%)',
+              //borderRadius: '10px',
+              // display: 'flex',
+              // justifyContent: 'center',
+              // alignItems: 'center',
+              // color: 'white',
+              // fontSize: '24px',
+              // fontWeight: 'bold',
+              // textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+            }
+          }
           padding={10}  
           bgcolor={"darkblue"}
           color={"white"}
-          height={"100vh"}
+          min-height={"100vh"}
         >
-          <Typography variant="h2" component="h2" gutterBottom className="apply">
+          <Typography 
+            variant="h2" 
+            component="h2" 
+            gutterBottom 
+            className="apply">
             Features
           </Typography>
           <Grid container spacing={4}>
