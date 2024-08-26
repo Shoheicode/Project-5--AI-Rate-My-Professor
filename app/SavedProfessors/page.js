@@ -1,12 +1,13 @@
 'use client'
 import NavBar from '@/components/navbar/navbar'
-import { Box, Button, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import { useUser } from '@clerk/nextjs'
 import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { database } from '../firebase'
+import CoolCard from '@/components/Cards/professorCards'
 
 export default function Home() {
 
@@ -51,37 +52,35 @@ export default function Home() {
           flexDirection="column"
           justifyContent="center"
           alignItems="center"
+          bgcolor={"blue"}
         >
           <Typography variant="h4" component="h1" gutterBottom id='generateText'>
-            AStar Rate my Professor
+            Saved Professors
           </Typography> 
           
         </Box>
-        {console.log(professors.length)}
-          
-          <Box>
-              {professors.map((val, index) => (
-                <Box
+        <Box>
+          <Grid container spacing={3} sx={{ mt: 4 }}>
+            {professors.map((val, index) => (
+                <Grid 
+                  item 
+                  xs={12} 
+                  sm={6} 
+                  md={4} 
                   key={index}
+                  display={"flex"}
+                  justifyContent={"center"}
+                  alignItems={"center"}
                 >
-                  <Typography variant='h1' color={"black"}>
-                    {console.log(val['professor'])}
-                    {val['professor']}
-                  </Typography>
-                  <Typography>
-                    {"Subject: " + val['subject']}
-                  </Typography>
-                  <Typography>
-                    {"Star: " + val['stars']}
-                  </Typography>
-                </Box>
-                  )
-                )
-              }
-            </Box>
-            <Typography>
-              HIHIHIHI
-            </Typography>
+                  <CoolCard
+                    name={val["professor"]}
+                    subject={val["subject"]}
+                    review={parseInt(val["stars"])}
+                  />
+                </Grid>
+            ))}
+          </Grid>
+        </Box>
       </Box>
     );
 }

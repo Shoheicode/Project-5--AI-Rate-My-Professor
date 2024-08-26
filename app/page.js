@@ -82,9 +82,9 @@ export default function Home() {
             />
           </Grid>
         </Box>
-            <Button variant="contained" onClick={sendMessage}>
+            {/* <Button variant="contained" onClick={sendMessage}>
               Send
-            </Button>
+            </Button> */}
             {/* <Button
               variant="contained"
               onClick={() => {
