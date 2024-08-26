@@ -13,6 +13,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import { Folder, Help, Image } from "@mui/icons-material";
 import HelpIcon from '@mui/icons-material/Help';
 import RateReviewIcon from '@mui/icons-material/RateReview';
+import '@/app/CSS/LandingPage.css'
 
 export default function NavBar(){
 
@@ -44,7 +45,11 @@ export default function NavBar(){
               <ListItemIcon>
                 <HomeIcon></HomeIcon>
               </ListItemIcon>
-              <ListItemText primary={"AStar Rate My Professor"} />
+              <Typography
+                className="apply"  
+              >
+                AStar Rate My Professor
+              </Typography> 
             </ListItemButton>
           </ListItem>
           <ListItem key={"Talk Chat Bot"} disablePadding>
@@ -52,7 +57,11 @@ export default function NavBar(){
               <ListItemIcon>
                 <CreateIcon></CreateIcon>
               </ListItemIcon>
-              <ListItemText primary={"Talk Chat Bot"} />
+              <Typography
+                className="apply"  
+              >
+                Talk Chat Bot
+              </Typography>
             </ListItemButton>
           </ListItem>
           <ListItem key={"Rate my Professor"} disablePadding>
@@ -60,7 +69,11 @@ export default function NavBar(){
               <ListItemIcon>
                 <RateReviewIcon></RateReviewIcon>
               </ListItemIcon>
-              <ListItemText primary={"Rate my Professor"} />
+              <Typography
+                className="apply"  
+              >
+                Rate my Professor
+              </Typography>
             </ListItemButton>
           </ListItem>
           <ListItem key={"Saved Professors"} disablePadding>
@@ -68,23 +81,35 @@ export default function NavBar(){
               <ListItemIcon>
                 <FolderIcon />
               </ListItemIcon>
-              <ListItemText primary={"Saved Professors"} />
+              <Typography
+                className="apply"  
+              >
+                Saved Professors
+              </Typography>
             </ListItemButton>
           </ListItem>
           <ListItem key={"About"} disablePadding>
-            <ListItemButton href="/SavedProfessors">
+            <ListItemButton href="/about">
               <ListItemIcon>
                 <SortIcon></SortIcon>
               </ListItemIcon>
-              <ListItemText primary={"About"} />
+              <Typography
+                className="apply"  
+              >
+                About
+              </Typography>
             </ListItemButton>
           </ListItem>
           <ListItem key={"Help"} disablePadding>
-            <ListItemButton href="/flashcards">
+            <ListItemButton href="/help">
               <ListItemIcon>
                 <Help></Help>
               </ListItemIcon>
-              <ListItemText primary={"Help"} />
+              <Typography
+                className="apply"  
+              >
+                Help
+              </Typography>
             </ListItemButton>
           </ListItem>
         </List>
@@ -196,7 +221,10 @@ export default function NavBar(){
               </MenuIcon>
             </IconButton>
             <Link href={"/"} style={{ flexGrow: 1 }}>
-              <Typography variant="h6">
+              <Typography 
+                variant="h6"
+                className="apply"  
+              >
                 AStar Rate my Professor
               </Typography>
             </Link>
