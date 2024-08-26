@@ -172,22 +172,6 @@ export default function Home() {
             await setDoc(userDocRef, {Professor: profs})
           }
       }
-        
-      // } else {
-      //   batch.set(userDocRef, { Professor: [professor['professor']] })
-      // }
-  
-      // const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
-      // const setDocSnap = await getDoc(userDocRef)
-      // if(setDocSnap.exists()){
-      //   console.log("I EXIST! I AM INVINCIBLE")
-      // }
-      // batch.set(setDocRef, professor)
-  
-      // await batch.commit()
-  
-      // alert('Flashcards saved successfully!')
-      //handleCloseDialog()
 
     } catch (error) {
       console.error('Error saving flashcards:', error)
