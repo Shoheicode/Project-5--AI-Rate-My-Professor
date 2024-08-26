@@ -41,7 +41,7 @@ export default function Home() {
 
   return (
     <Box
-        className="moving-background"
+        className="moving-background-help"
         minheight="100vh"
     >
         <NavBar />

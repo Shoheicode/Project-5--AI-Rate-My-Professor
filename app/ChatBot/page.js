@@ -2,9 +2,12 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useState, Fragment } from "react";
 import { database } from "../firebase";
-import { collection, doc, getDoc, writeBatch } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import NavBar from "@/components/navbar/navbar";
+import '@/app/CSS/MovingBackground.css'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -17,6 +20,7 @@ export default function Home() {
   const [message, setMessage] = useState("");
   const [firstMessage, setFirstMessage] = useState(null);
   let ranFirst = false;
+  const [likedMessages, setLikes] = useState([])
 
   const sendMessage = async () => {
     setMessage("");
@@ -37,7 +41,7 @@ export default function Home() {
       const decoder = new TextDecoder();
       let result = "";
 
-      return reader.read().then(function processText({ done, value }) {
+      return reader.read().then(async function processText({ done, value }) {
         if (done) {
           return result;
         }
@@ -46,7 +50,38 @@ export default function Home() {
         });
 
         if (!ranFirst) {
+          //Right here, we have to figure out if the professors are saved in the firebase
+          let lis = []
           ranFirst = true;
+          for(var i = 0; i < JSON.parse(text).data.length; i++){
+            try {
+              const userDocRef = doc(collection(database, 'users'), user.id)
+              const userDocSnap = await getDoc(userDocRef)
+          
+              const batch = writeBatch(database)
+          
+              if (userDocSnap.exists()) {
+                const userData = userDocSnap.data()
+                console.log(userData.Professor)
+                console.log("JSON " + JSON.parse(text).data)
+                if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
+                  lis.push(false)
+                }
+                else{
+                  lis.push(true)
+                }
+                
+              } else {
+                batch.set(userDocRef, { Professor: [] })
+                lis = [false, false, false]
+              }
+            }
+            catch (error) {
+              console.error('Error saving flashcards:', error)
+              alert('An error occurred while saving flashcards. Please try again.')
+            }
+          }
+          setLikes(lis)
           setFirstMessage(JSON.parse(text));
         } else {
           setMessages((messages) => {
@@ -106,18 +141,91 @@ export default function Home() {
 
   };
 
+  const removeProfessor = async (professor) => {
+    console.log("HIHIHIHIHI")
+    console.log(professor);
+
+    try {
+      const name = professor['professor']
+      const userDocRef = doc(collection(database, 'users'), user.id)
+      const userDocSnap = await getDoc(userDocRef)
+      const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
+
+      //const batch = writeBatch(database)
+
+      await deleteDoc(deletingDocument);
+
+
+
+      // const batch = writeBatch(database)
+      
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data()
+          console.log(userData.Professor)
+          console.log("Name: " + name)
+          if (userData.Professor.includes(name)){
+            const index = userData.Professor.indexOf(name);
+            console.log(index)
+            userData.Professor.splice(index, 1);
+            let profs = userData.Professor
+            await setDoc(userDocRef, {Professor: profs})
+          }
+      }
+        
+      // } else {
+      //   batch.set(userDocRef, { Professor: [professor['professor']] })
+      // }
+  
+      // const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
+      // const setDocSnap = await getDoc(userDocRef)
+      // if(setDocSnap.exists()){
+      //   console.log("I EXIST! I AM INVINCIBLE")
+      // }
+      // batch.set(setDocRef, professor)
+  
+      // await batch.commit()
+  
+      // alert('Flashcards saved successfully!')
+      //handleCloseDialog()
+
+    } catch (error) {
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
+    }
+
+  };
+
+  const handleClick = (prof, index) => {
+    if (!likedMessages[index]) {
+      saveProfessor(prof)
+      console.log("SAVING PROFESSOR")
+    } else {
+      // setCount(count + 1);
+      removeProfessor(prof);
+      console.log("Deleting PROFESSOR")
+    }
+    setLikes((prev) => ({
+      ...prev,
+      [index]: !prev[index],
+    }))
+  };
+
+
   return (
     <Box>
       <NavBar />
       <Box
-        width="100vw"
+        min-width="100vw"
         min-height="100vh"
         display="flex"
-        flexDirection="column"
-        justifyContent="center"
+        flexDirection="row"
+        justifyContent="space-around"
         alignItems="center"
+        
       >
         <Stack
+          className="moving-background-chatbot"
           direction={"column"}
           width="500px"
           height="700px"
@@ -164,6 +272,12 @@ export default function Home() {
           </Stack>
           <Stack direction={"row"} spacing={2}>
             <TextField
+              sx={
+                {
+                  backgroundColor: "white!important",
+                  borderRadius: "5px"
+                }
+              }
               label="Message"
               fullWidth
               value={message}
@@ -180,15 +294,19 @@ export default function Home() {
             {firstMessage.data.map((jsonFile, index) => (
               <Box
                 key={index}
-
               >
                 <Typography>
                   {jsonFile['professor']}
                 </Typography>
                 <Button
-                  onClick={() => saveProfessor(jsonFile)}
+                  onClick={() => handleClick(jsonFile, index)}
                 >
-                  Press Button
+                  {
+                    console.log(likedMessages)
+                  }
+                  {
+                    likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
+                  }
                 </Button>
               </Box>
             ))
