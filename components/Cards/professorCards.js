@@ -1,10 +1,11 @@
-import { Rating } from '@mui/material';
+import { Box, Button, Rating, Stack } from '@mui/material';
 import React from 'react';
 import styled from 'styled-components';
+import '@/app/CSS/MovingBackground.css'
 
 const CardContainer = styled.div`
   width: 300px;
-  height: 400px;
+  height: 300px;
   background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -58,13 +59,29 @@ const CoolCard = ({name, review, subject}) => {
     <CardContainer>
       {/* <CardImage src="https://picsum.photos/300/200" alt="Random" /> */}
       <CardContent>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>
-          {subject}
-        </CardDescription>
-        {console.log(review)}
-        <Rating name="read-only" value={review} readOnly />
-        <CardButton>Learn More</CardButton>
+        <Stack
+          gap={3}
+        >
+          <Box
+            display={"flex"}
+            justifyContent={"space-between"}
+          >
+            <CardTitle>{name}</CardTitle>
+            <Button
+              variant='contained'
+              color='error'
+              className='buttonColor'
+            >
+              X
+            </Button>
+          </Box>
+          <CardDescription>
+            {subject}
+          </CardDescription>
+          {console.log(review)}
+          <Rating name="read-only" value={review} readOnly />
+          <CardButton>Learn More</CardButton>
+        </Stack>
       </CardContent>
     </CardContainer>
   );
