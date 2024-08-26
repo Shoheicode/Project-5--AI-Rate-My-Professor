@@ -8,7 +8,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-export default function UserReviewForm() {
+export default function UserReviewForm({ isLink }) {
+  const [link, setLink] = useState("");
+
   const [stars, setStars] = useState(0);
   const [professor, setProfessor] = useState("");
   const [subject, setSubject] = useState("");
@@ -17,18 +19,50 @@ export default function UserReviewForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    fetch("/api/addSingleReview", {
+    const send_url = isLink
+      ? "http://ec2-18-117-223-248.us-east-2.compute.amazonaws.com/scrapeAndUpsertReviews"
+      : "/api/addSingleReview";
+
+    const body_obj = isLink
+      ? { url: link }
+      : {
+          professor: professor,
+          stars: stars,
+          subject: subject,
+          review: review,
+        };
+
+    fetch(send_url, {
       method: "POST",
-      body: JSON.stringify({
-        professor: professor,
-        stars: stars,
-        subject: subject,
-        review: review,
-      }),
-    });
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body_obj),
+    })
+      .then((data) => data.text())
+      .then((res) => console.log(res));
   };
 
-  return (
+  return isLink ? (
+    <Box>
+      <form
+        onSubmit={handleSubmit}
+        style={{ display: "flex", flexDirection: "column", gap: 10 }}
+      >
+        <TextField
+          id="outlined-basic"
+          label="Link"
+          variant="outlined"
+          value={link}
+          onChange={(e) => setLink(e.target.value)}
+          required
+        />
+        <Button type="submit" variant="contained">
+          Submit
+        </Button>
+      </form>
+    </Box>
+  ) : (
     <Box>
       <form
         onSubmit={handleSubmit}
