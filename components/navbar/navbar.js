@@ -9,7 +9,10 @@ import HomeIcon from '@mui/icons-material/Home';
 import CreateIcon from '@mui/icons-material/Create';
 import SearchIcon from '@mui/icons-material/Search';
 import SortIcon from '@mui/icons-material/Sort';
-import { Image } from "@mui/icons-material";
+import FolderIcon from '@mui/icons-material/Folder';
+import { Folder, Help, Image } from "@mui/icons-material";
+import HelpIcon from '@mui/icons-material/Help';
+import RateReviewIcon from '@mui/icons-material/RateReview';
 
 export default function NavBar(){
 
@@ -53,9 +56,9 @@ export default function NavBar(){
             </ListItemButton>
           </ListItem>
           <ListItem key={"Rate my Professor"} disablePadding>
-            <ListItemButton href="/flashcards">
+            <ListItemButton href="/ratemyprofessor">
               <ListItemIcon>
-                <SortIcon></SortIcon>
+                <RateReviewIcon></RateReviewIcon>
               </ListItemIcon>
               <ListItemText primary={"Rate my Professor"} />
             </ListItemButton>
@@ -63,7 +66,7 @@ export default function NavBar(){
           <ListItem key={"Saved Professors"} disablePadding>
             <ListItemButton href="/SavedProfessors">
               <ListItemIcon>
-                <SortIcon></SortIcon>
+                <FolderIcon />
               </ListItemIcon>
               <ListItemText primary={"Saved Professors"} />
             </ListItemButton>
@@ -79,7 +82,7 @@ export default function NavBar(){
           <ListItem key={"Help"} disablePadding>
             <ListItemButton href="/flashcards">
               <ListItemIcon>
-                <SortIcon></SortIcon>
+                <Help></Help>
               </ListItemIcon>
               <ListItemText primary={"Help"} />
             </ListItemButton>

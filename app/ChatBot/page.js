@@ -84,7 +84,7 @@ export default function Home() {
         }
         
       } else {
-        batch.set(userDocRef, { Professor: [{ name: professor['professor'] }] })
+        batch.set(userDocRef, { Professor: [professor['professor']] })
       }
   
       const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
@@ -111,7 +111,7 @@ export default function Home() {
       <NavBar />
       <Box
         width="100vw"
-        height="100vh"
+        min-height="100vh"
         display="flex"
         flexDirection="column"
         justifyContent="center"
