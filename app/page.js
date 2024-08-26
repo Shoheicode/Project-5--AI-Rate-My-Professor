@@ -1,150 +1,109 @@
-"use client";
-import { Box, Button, Stack, TextField } from "@mui/material";
-import { useState, Fragment } from "react";
+'use client'
+import NavBar from '@/components/navbar/navbar'
+import { Box, Button, Stack, TextField, Typography , Grid} from '@mui/material'
+import Head from 'next/head'
+import { useState } from 'react'
+import '@/app/CSS/LandingPage.css'
+import InfoCard from '@/components/infoCard/infoCard'
+import DevicesIcon from "@mui/icons-material/Devices";
+import TextsmsIcon from "@mui/icons-material/Textsms";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
-  const [messages, setMessages] = useState([
-    {
-      role: "assistant",
-      content: `Hi! I'm the Rate My Professor support assistant. How can I help you today?`,
-    },
-  ]);
-  const [message, setMessage] = useState("");
-  const [firstMessage, setFirstMessage] = useState("");
-  let ranFirst = false;
 
-  const sendMessage = async () => {
-    setMessage("");
-    setMessages((messages) => [
-      ...messages,
-      { role: "user", content: message },
-      { role: "assistant", content: "" },
-    ]);
+  const { isLoaded, isSignedIn, user } = useUser()
+  const router = useRouter()
 
-    const response = fetch("/api/chat", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify([...messages, { role: "user", content: message }]),
-    }).then(async (res) => {
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let result = "";
-
-      return reader.read().then(function processText({ done, value }) {
-        if (done) {
-          return result;
-        }
-        const text = decoder.decode(value || new Uint8Array(), {
-          stream: true,
-        });
-
-        if (!ranFirst) {
-          ranFirst = true;
-          setFirstMessage(JSON.parse(text));
-        } else {
-          setMessages((messages) => {
-            let lastMessage = messages[messages.length - 1];
-            let otherMessages = messages.slice(0, messages.length - 1);
-            return [
-              ...otherMessages,
-              { ...lastMessage, content: lastMessage.content + text },
-            ];
-          });
-        }
-
-        return reader.read().then(processText);
-      });
-    });
-  };
+  const sendPerson = () =>{
+    if(isSignedIn){
+      router.push(`/ChatBot`)
+    }else{
+      router.push("sign-in")
+    }
+  }
 
   return (
-    <>
-      <Box
-        width="100vw"
-        height="100vh"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Stack
-          direction={"column"}
-          width="500px"
-          height="700px"
-          border="1px solid black"
-          p={2}
-          spacing={3}
+    <Box>
+      <Head>
+        <title>AStar Rate my Professor</title>
+        <meta name="description" content="AStar Rate my Professor" />
+      </Head>
+
+      <NavBar />
+      <Box 
+          width={"100%"}
+          min-height={"100vh"}
+          sx={{ textAlign: "center" }}
+          bgcolor={"black"}  
+          color={"white"}
+          margin={"0px"}
+          padding={10}
         >
-          <Stack
-            direction={"column"}
-            spacing={2}
-            flexGrow={1}
-            overflow="auto"
-            maxHeight="100%"
+          <Typography variant="h4" component="h1" gutterBottom id='generateText'>
+            AStar Rate my Professor
+          </Typography>
+          <Typography variant="h5" component="h2" gutterBottom className="apply">
+            The easiest way to start figuring out which professor is for you!
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{ mt: 2, mr: 2 }}
+            onClick={sendPerson}
           >
-            {messages.map((message, index) => (
-              <Box
-                key={index}
-                display="flex"
-                justifyContent={
-                  message.role === "assistant" ? "flex-start" : "flex-end"
-                }
-              >
-                {console.log(firstMessage)}
-                <Box
-                  bgcolor={
-                    message.role === "assistant"
-                      ? "primary.main"
-                      : "secondary.main"
-                  }
-                  color="white"
-                  borderRadius={10}
-                  p={3}
-                >
-                  {message.content.split("\n").map((line, i) => (
-                    <Fragment key={i}>
-                      {line}
-                      <br />
-                    </Fragment>
-                  ))}
-                </Box>
-              </Box>
-            ))}
-          </Stack>
-          <Stack direction={"row"} spacing={2}>
-            <TextField
-              label="Message"
-              fullWidth
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
+            Get Started
+          </Button>
+          <Button
+            variant="outlined"
+            color="inherit"
+            sx={{ mt: 2 }}
+            href="/learnmore"
+          >
+            Learn More
+          </Button>
+        </Box>
+
+        <Box 
+          // sx={{ my: 6 }}
+          sx={
+            {
+              background: 'linear-gradient(70deg, rgba(255,77,0,1) 0%, rgba(255,249,2,1) 100%)',
+            }
+          }
+          padding={10}  
+          bgcolor={"darkblue"}
+          color={"white"}
+          min-height={"100vh"}
+        >
+          <Typography 
+            variant="h2" 
+            component="h2" 
+            gutterBottom 
+            className="apply">
+            Features
+          </Typography>
+          <Grid container spacing={4}>
+            {/* Feature items */}
+            <InfoCard
+              
+              icon={<TextsmsIcon />}
+              title="Text to Cards in Seconds"
+              subtitle="Transform your notes with just a few keystrokes"
             />
-            <Button variant="contained" onClick={sendMessage}>
-              Send
-            </Button>
-            {/* <Button
-              variant="contained"
-              onClick={() => {
-                fetch("/api/addSingleReview", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    professor: "prof",
-                    review: "man he really",
-                    subject: "Love",
-                    stars: 1041342,
-                  }),
-                }).then((res) => {});
-              }}
-            >
-              PRESS
-            </Button> */}
-          </Stack>
-        </Stack>
+            <InfoCard
+              icon={<DevicesIcon />}
+              title="Easy Access"
+              subtitle="Flashcards are accessible anytime, anywhere."
+            />
+            <InfoCard
+              icon={<AutoAwesomeIcon />}
+              title="Harness Artificial Intelligence"
+              subtitle="Watch AI generate flashcards in seconds"
+            />
+          </Grid>
+        </Box>
       </Box>
-    </>
   );
 }
