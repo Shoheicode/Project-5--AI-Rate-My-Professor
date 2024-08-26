@@ -8,8 +8,21 @@ import InfoCard from '@/components/infoCard/infoCard'
 import DevicesIcon from "@mui/icons-material/Devices";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
+import { useUser } from '@clerk/nextjs'
+import { useRouter } from 'next/navigation'
 
 export default function Home() {
+
+  const { isLoaded, isSignedIn, user } = useUser()
+  const router = useRouter()
+
+  const sendPerson = () =>{
+    if(isSignedIn){
+      router.push(`/ChatBot`)
+    }else{
+      router.push("sign-in")
+    }
+  }
 
   return (
     <Box>
@@ -38,7 +51,7 @@ export default function Home() {
             variant="contained"
             color="primary"
             sx={{ mt: 2, mr: 2 }}
-            href="/ChatBot"
+            onClick={sendPerson}
           >
             Get Started
           </Button>
@@ -57,14 +70,6 @@ export default function Home() {
           sx={
             {
               background: 'linear-gradient(70deg, rgba(255,77,0,1) 0%, rgba(255,249,2,1) 100%)',
-              //borderRadius: '10px',
-              // display: 'flex',
-              // justifyContent: 'center',
-              // alignItems: 'center',
-              // color: 'white',
-              // fontSize: '24px',
-              // fontWeight: 'bold',
-              // textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
             }
           }
           padding={10}  
@@ -99,28 +104,6 @@ export default function Home() {
             />
           </Grid>
         </Box>
-            {/* <Button variant="contained" onClick={sendMessage}>
-              Send
-            </Button> */}
-            {/* <Button
-              variant="contained"
-              onClick={() => {
-                fetch("/api/addSingleReview", {
-                  method: "POST",
-                  headers: {
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    professor: "prof",
-                    review: "man he really",
-                    subject: "Love",
-                    stars: 1041342,
-                  }),
-                }).then((res) => {});
-              }}
-            >
-              PRESS
-            </Button> */}
       </Box>
   );
 }
