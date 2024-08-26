@@ -1,15 +1,63 @@
 'use client'
 import NavBar from '@/components/navbar/navbar'
-import { Box, Button, Grid, Stack, TextField, Typography } from '@mui/material'
+import { Box, Button, Grid, Rating, Stack, TextField, Typography } from '@mui/material'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import { useUser } from '@clerk/nextjs'
-import { collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from 'firebase/firestore'
 import { database } from '../firebase'
 import CoolCard from '@/components/Cards/professorCards'
+import styled from 'styled-components';
 
 export default function Home() {
+
+    //STYLES FOR THE CARD!!
+
+    const CardContainer = styled.div`
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+      border-radius: 20px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: translateY(-10px);
+      }
+    `;
+
+    const CardContent = styled.div`
+      padding: 20px;
+      color: white;
+    `;
+
+    const CardTitle = styled.h2`
+      font-size: 24px;
+      margin-bottom: 10px;
+    `;
+
+    const CardDescription = styled.p`
+      font-size: 16px;
+      line-height: 1.5;
+    `;
+
+    const CardButton = styled.button`
+      background-color: white;
+      color: #ff6b6b;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #f0f0f0;
+      }
+    `;
 
     const { isLoaded, isSignedIn, user } = useUser()
     const [professors, setProfessors] = useState([]);
@@ -29,16 +77,66 @@ export default function Home() {
         });
 
         setProfessors(list)
-        
-        // const flashcds = docy
-        // console.log(flashcds)
-        // setProfessors(flashcds)
       }
       getFlashcard()
     }, [user])
 
+    const removeProfessor = async (professor) => {
+    console.log("HIHIHIHIHI")
+    console.log(professor);
+
+    try {
+      const name = professor['professor']
+      const userDocRef = doc(collection(database, 'users'), user.id)
+      const userDocSnap = await getDoc(userDocRef)
+      const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
+
+      //const batch = writeBatch(database)
+
+      await deleteDoc(deletingDocument);
+
+      const collectReference = collection(doc(collection(database, 'users'), user.id), 'Professor')
+      const docy = await getDocs(collectReference)
+
+      let list = []
+
+      docy.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        list.push(doc.data())
+      });
+
+      setProfessors(list)
+
+
+      // const batch = writeBatch(database)
+      
+  
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data()
+          console.log(userData.Professor)
+          console.log("Name: " + name)
+          if (userData.Professor.includes(name)){
+            const index = userData.Professor.indexOf(name);
+            console.log(index)
+            userData.Professor.splice(index, 1);
+            let profs = userData.Professor
+            
+            await setDoc(userDocRef, {Professor: profs})
+            //setProfessors(profs.data)
+          }
+      }
+
+    } catch (error) {
+      console.error('Error saving flashcards:', error)
+      alert('An error occurred while saving flashcards. Please try again.')
+    }
+
+    };
+
     return (
-      <Box>
+      <Box
+        min-height= "100vh"
+      >
         <Head>
           <title>AStar Rate my Professor</title>
           <meta name="description" content="AStar Rate my Professor" />
@@ -59,7 +157,7 @@ export default function Home() {
           </Typography> 
           
         </Box>
-        <Box>
+        {professors.length > 0 && <Box>
           <Grid container spacing={3} sx={{ mt: 4 }}>
             {professors.map((val, index) => (
                 <Grid 
@@ -72,15 +170,39 @@ export default function Home() {
                   justifyContent={"center"}
                   alignItems={"center"}
                 >
-                  <CoolCard
-                    name={val["professor"]}
-                    subject={val["subject"]}
-                    review={parseInt(val["stars"])}
-                  />
+                  <CardContainer>
+                    {/* <CardImage src="https://picsum.photos/300/200" alt="Random" /> */}
+                    <CardContent>
+                      <Stack
+                        gap={3}
+                      >
+                        <Box
+                          display={"flex"}
+                          justifyContent={"space-between"}
+                        >
+                          <CardTitle>{val["professor"]}</CardTitle>
+                          <Button
+                            variant='contained'
+                            color='error'
+                            className='buttonColor'
+                            onClick={() => removeProfessor(val)}
+                          >
+                            X
+                          </Button>
+                        </Box>
+                        <CardDescription>
+                          {val["subject"]}
+                        </CardDescription>
+                        <Rating name="read-only" value={parseInt(val["stars"])} readOnly />
+                        <CardButton>Learn More</CardButton>
+                      </Stack>
+                    </CardContent>
+                  </CardContainer>
                 </Grid>
             ))}
           </Grid>
         </Box>
+        }
       </Box>
     );
 }
