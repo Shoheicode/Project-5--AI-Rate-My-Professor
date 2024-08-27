@@ -108,7 +108,6 @@ export default function Home() {
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
-        console.log(userData.Professor)
         if (!userData.Professor.includes(professor['professor'])){
           const updatedSets = [...(userData.Professor || []), professor['professor'] ]
           batch.update(userDocRef, { Professor: updatedSets })
