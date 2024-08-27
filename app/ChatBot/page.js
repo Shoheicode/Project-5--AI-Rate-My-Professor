@@ -272,9 +272,6 @@ export default function Home() {
                   onClick={() => handleClick(jsonFile, index)}
                 >
                   {
-                    console.log(likedMessages)
-                  }
-                  {
                     likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
                   }
                 </Button>
