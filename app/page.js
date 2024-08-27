@@ -89,18 +89,18 @@ export default function Home() {
             <InfoCard
               
               icon={<TextsmsIcon />}
-              title="Text to Cards in Seconds"
-              subtitle="Transform your notes with just a few keystrokes"
+              title="Text to Professors in Seconds"
+              subtitle="Ask for your subject and professor and our chat-bot will take it away!"
             />
             <InfoCard
               icon={<DevicesIcon />}
               title="Easy Access"
-              subtitle="Flashcards are accessible anytime, anywhere."
+              subtitle="Your saved professors will be able to be accessed from anywhere and be easy to save"
             />
             <InfoCard
               icon={<AutoAwesomeIcon />}
               title="Harness Artificial Intelligence"
-              subtitle="Watch AI generate flashcards in seconds"
+              subtitle="Watch AI search through our database to find the professor that fits you the best"
             />
           </Grid>
         </Box>
