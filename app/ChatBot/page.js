@@ -77,8 +77,8 @@ export default function Home() {
               }
             }
             catch (error) {
-              console.error('Error saving flashcards:', error)
-              alert('An error occurred while saving flashcards. Please try again.')
+              console.error('Error saving professors:', error)
+              alert('An error occurred while saving professors. Please try again.')
             }
           }
           setLikes(lis)
@@ -123,20 +123,16 @@ export default function Home() {
       }
   
       const setDocRef = doc(collection(userDocRef, 'Professor'), professor['professor'])
-      const setDocSnap = await getDoc(userDocRef)
-      if(setDocSnap.exists()){
-        console.log("I EXIST! I AM INVINCIBLE")
-      }
       batch.set(setDocRef, professor)
   
       await batch.commit()
   
-      alert('Flashcards saved successfully!')
+      alert('Professors saved successfully!')
       //handleCloseDialog()
 
     } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+      console.error('Error saving professors:', error)
+      alert('An error occurred while saving professors. Please try again.')
     }
 
   };
