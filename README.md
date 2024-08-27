@@ -1,4 +1,4 @@
-# Project Name
+# Project-5-AI-Rate-My-Professor
 
 Brief description of your project.
 
