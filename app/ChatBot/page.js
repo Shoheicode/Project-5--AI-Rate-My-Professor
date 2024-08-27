@@ -138,8 +138,6 @@ export default function Home() {
   };
 
   const removeProfessor = async (professor) => {
-    console.log("HIHIHIHIHI")
-    console.log(professor);
 
     try {
       const name = professor['professor']
