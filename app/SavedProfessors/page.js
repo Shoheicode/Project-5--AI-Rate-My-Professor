@@ -117,7 +117,7 @@ export default function Home() {
       }
 
     } catch (error) {
-      console.error('Error removing prfossers:', error)
+      console.error('Error removing professors:', error)
       alert('An error occurred while removing flashcards. Please try again.')
     }
 
