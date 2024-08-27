@@ -98,8 +98,6 @@ export default function Home() {
   };
 
   const saveProfessor = async (professor) => {
-    console.log("HIHIHIHIHI")
-    console.log(professor);
 
     try {
       const userDocRef = doc(collection(database, 'users'), user.id)
