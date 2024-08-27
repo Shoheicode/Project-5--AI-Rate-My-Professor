@@ -113,7 +113,6 @@ export default function Home() {
         const userData = userDocSnap.data()
           if (userData.Professor.includes(name)){
             const index = userData.Professor.indexOf(name);
-            console.log(index)
             userData.Professor.splice(index, 1);
             let profs = userData.Professor
             
