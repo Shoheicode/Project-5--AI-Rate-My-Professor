@@ -111,8 +111,6 @@ export default function Home() {
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
-          console.log(userData.Professor)
-          console.log("Name: " + name)
           if (userData.Professor.includes(name)){
             const index = userData.Professor.indexOf(name);
             console.log(index)
