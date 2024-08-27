@@ -100,7 +100,7 @@ export default function Home() {
             <InfoCard
               icon={<AutoAwesomeIcon />}
               title="Harness Artificial Intelligence"
-              subtitle="Watch AI search through our database to find the professor that fits you the best"
+              subtitle="Watch AI search to find the professor that fits you the best"
             />
           </Grid>
         </Box>
