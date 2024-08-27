@@ -117,8 +117,8 @@ export default function Home() {
       }
 
     } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+      console.error('Error removing prfossers:', error)
+      alert('An error occurred while removing flashcards. Please try again.')
     }
 
     };
