@@ -156,11 +156,8 @@ export default function Home() {
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
-          console.log(userData.Professor)
-          console.log("Name: " + name)
           if (userData.Professor.includes(name)){
             const index = userData.Professor.indexOf(name);
-            console.log(index)
             userData.Professor.splice(index, 1);
             let profs = userData.Professor
             await setDoc(userDocRef, {Professor: profs})
@@ -177,11 +174,8 @@ export default function Home() {
   const handleClick = (prof, index) => {
     if (!likedMessages[index]) {
       saveProfessor(prof)
-      console.log("SAVING PROFESSOR")
     } else {
-      // setCount(count + 1);
       removeProfessor(prof);
-      console.log("Deleting PROFESSOR")
     }
     setLikes((prev) => ({
       ...prev,
@@ -267,8 +261,6 @@ export default function Home() {
           </Stack>
         </Stack>
         {firstMessage && <Box>
-            {//console.log("HIHIHIHIHHI")
-            }
             {firstMessage.data.map((jsonFile, index) => (
               <Box
                 key={index}
