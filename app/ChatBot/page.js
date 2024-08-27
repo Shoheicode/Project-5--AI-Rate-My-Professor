@@ -62,8 +62,6 @@ export default function Home() {
           
               if (userDocSnap.exists()) {
                 const userData = userDocSnap.data()
-                console.log(userData.Professor)
-                console.log("JSON " + JSON.parse(text).data)
                 if (!userData.Professor.includes(JSON.parse(text).data[i].professor)){
                   lis.push(false)
                 }
