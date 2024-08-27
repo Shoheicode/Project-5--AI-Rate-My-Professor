@@ -104,10 +104,6 @@ export default function Home() {
       });
 
       setProfessors(list)
-
-
-      // const batch = writeBatch(database)
-      
   
       if (userDocSnap.exists()) {
         const userData = userDocSnap.data()
@@ -117,7 +113,6 @@ export default function Home() {
             let profs = userData.Professor
             
             await setDoc(userDocRef, {Professor: profs})
-            //setProfessors(profs.data)
           }
       }
 
