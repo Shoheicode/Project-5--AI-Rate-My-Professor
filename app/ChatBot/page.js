@@ -170,9 +170,6 @@ const CardButton = styled.button`
       batch.set(setDocRef, professor)
   
       await batch.commit()
-  
-      //alert('Professors saved successfully!')
-      //handleCloseDialog()
 
     } catch (error) {
       console.error('Error saving professors:', error)
