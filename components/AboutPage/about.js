@@ -46,7 +46,7 @@ const CoolAboutPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <p>At AStar, we're not just making cool products, we are a group of students passionate about learning and building. Our team of visionaries and innovators work tirelessly to make unique products that can help out people of all ages.</p>
+          <p>At AStar, we&apos;re not just making cool products, we are a group of students passionate about learning and building. Our team of visionaries and innovators work tirelessly to make unique products that can help out people of all ages.</p>
           
           <h3>Our Mission</h3>
           <p>To create and innovate different softwares to provide substainable and useful products for people to learn.</p>
