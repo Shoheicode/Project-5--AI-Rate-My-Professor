@@ -105,16 +105,6 @@ export default function Home() {
             />
           </Grid>
         </Box>
-        <Box>
-          <ProfessorBox professor={{
-            name: "Dr. Jane Smith",
-            email: "jane.smith@university.edu",
-            phone: "+1 (555) 123-4567",
-            department: "Computer Science",
-            courses: ["Intro to AI", "Machine Learning", "Data Structures"],
-            achievements: "2023 Outstanding Educator Award"
-          }}/>
-        </Box>
       </Box>
   );
 }
