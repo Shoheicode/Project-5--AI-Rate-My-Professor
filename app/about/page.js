@@ -1,4 +1,5 @@
 "use client";
+import About from "@/components/AboutPage/about";
 import NavBar from "@/components/navbar/navbar";
 import UserReviewForm from "@/components/userform/userReviewForm";
 import { Box, Button, Stack, TextField } from "@mui/material";
@@ -26,7 +27,7 @@ export default function Home() {
           justifyContent="center"
           alignItems="center"
         >
-            <UserReviewForm />
+            <About/>
       </Box>
     </Box>
   );

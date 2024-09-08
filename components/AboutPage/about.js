@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { motion } from 'framer-motion';
 
-export default function About() {
+const CoolAboutPage = () => {
   const [greeting, setGreeting] = useState('');
 
   useEffect(() => {
@@ -14,63 +15,133 @@ export default function About() {
   return (
     <div className="container">
       <Head>
-        <title>About Us - My Company</title>
-        <meta name="description" content="Learn more about our company and mission" />
+        <title>About Us - TechNova</title>
+        <meta name="description" content="Discover the innovation behind TechNova" />
         <link rel="icon" href="/favicon.ico" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
       </Head>
 
       <header>
-        <h1>My Company</h1>
-        <nav>
-          <a href="/">Home</a> | <a href="/about">About</a> | <a href="/contact">Contact</a>
-        </nav>
+        <motion.h1 
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          TechNova
+        </motion.h1>
       </header>
 
       <main>
-        <h2>{greeting}, welcome to our About page!</h2>
-        <p>We are a passionate team dedicated to creating innovative solutions for our clients.</p>
-        <p>Our mission is to deliver high-quality products that make a difference in people's lives.</p>
-        <h3>Our Values</h3>
-        <ul>
-          <li>Innovation</li>
-          <li>Integrity</li>
-          <li>Collaboration</li>
-          <li>Excellence</li>
-        </ul>
+        <motion.h2 
+          initial={{ x: -50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {greeting}, welcome to our world of innovation!
+        </motion.h2>
+        
+        <motion.section 
+          className="about-content"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <p>At TechNova, we're not just creating technology; we're shaping the future. Our team of visionaries and innovators work tirelessly to bring cutting-edge solutions to life.</p>
+          
+          <h3>Our Mission</h3>
+          <p>To revolutionize industries through sustainable, user-centric technology that enhances lives and pushes the boundaries of what's possible.</p>
+          
+          <h3>Our Values</h3>
+          <ul className="values-list">
+            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Innovation</motion.li>
+            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Integrity</motion.li>
+            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Collaboration</motion.li>
+            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Excellence</motion.li>
+          </ul>
+        </motion.section>
       </main>
 
       <footer>
-        <p>&copy; 2024 My Company. All rights reserved.</p>
+        <p>&copy; 2024 TechNova. Innovating for a brighter tomorrow.</p>
       </footer>
 
-      <style jsx>{`
+      <style jsx global>{`
+        body {
+          margin: 0;
+          font-family: 'Poppins', sans-serif;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          color: #ffffff;
+          min-height: 100vh;
+        }
         .container {
           max-width: 800px;
           margin: 0 auto;
-          padding: 0 1rem;
-          font-family: Arial, sans-serif;
+          padding: 2rem;
         }
         header {
-          padding: 1rem 0;
-          border-bottom: 1px solid #eaeaea;
-          margin-bottom: 2rem;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 3rem;
         }
         h1 {
-          margin: 0 0 1rem 0;
+          font-size: 2.5rem;
+          font-weight: 600;
+          margin: 0;
         }
-        nav {
-          margin-bottom: 1rem;
+        nav a {
+          color: #ffffff;
+          text-decoration: none;
+          margin-left: 1.5rem;
+          font-weight: 300;
+          transition: all 0.3s ease;
+        }
+        nav a:hover, nav a.active {
+          color: #ffd700;
         }
         main {
-          min-height: 60vh;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border-radius: 20px;
+          padding: 2rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 2rem;
+        }
+        h3 {
+          font-size: 1.4rem;
+          margin-top: 2rem;
+          color: #ffd700;
+        }
+        p {
+          line-height: 1.6;
+        }
+        .values-list {
+          list-style-type: none;
+          padding: 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+          gap: 1rem;
+        }
+        .values-list li {
+          background: rgba(255, 255, 255, 0.2);
+          padding: 0.8rem;
+          border-radius: 10px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.3s ease;
         }
         footer {
-          margin-top: 2rem;
-          padding: 1rem 0;
-          border-top: 1px solid #eaeaea;
+          margin-top: 3rem;
           text-align: center;
+          font-size: 0.9rem;
+          opacity: 0.8;
         }
       `}</style>
     </div>
   );
-}
+};
+
+export default CoolAboutPage;
