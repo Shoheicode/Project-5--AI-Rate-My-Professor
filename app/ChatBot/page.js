@@ -171,7 +171,7 @@ const CardButton = styled.button`
   
       await batch.commit()
   
-      alert('Professors saved successfully!')
+      //alert('Professors saved successfully!')
       //handleCloseDialog()
 
     } catch (error) {
@@ -307,7 +307,7 @@ const CardButton = styled.button`
             {firstMessage.data.map((jsonFile, index) => (
               <Box
                 key={index}
-                
+                margin={10}
               >
                 <CardContainer>
                   {/* <CardImage src="https://picsum.photos/300/200" alt="Random" /> */}
