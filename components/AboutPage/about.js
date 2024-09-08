@@ -15,8 +15,8 @@ const CoolAboutPage = () => {
   return (
     <div className="container">
       <Head>
-        <title>About Us - TechNova</title>
-        <meta name="description" content="Discover the innovation behind TechNova" />
+        <title>About Us - AStar</title>
+        <meta name="description" content="Discover the innovation behind AStar" />
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
       </Head>
@@ -27,7 +27,7 @@ const CoolAboutPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          TechNova
+          AStar
         </motion.h1>
       </header>
 
