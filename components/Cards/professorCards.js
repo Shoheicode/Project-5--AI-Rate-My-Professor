@@ -54,43 +54,44 @@ const CardButton = styled.button`
   }
 `;
 
-const CoolCard = ({name, review, subject}) => {
+const removeProfessor = async (professor) => {
+  try {
+    const name = professor['professor']
+    const userDocRef = doc(collection(database, 'users'), user.id)
+    const userDocSnap = await getDoc(userDocRef)
+    const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
 
-  const removeProfessor = async (professor) => {
-    try {
-      const name = professor['professor']
-      const userDocRef = doc(collection(database, 'users'), user.id)
-      const userDocSnap = await getDoc(userDocRef)
-      const deletingDocument = doc(collection(userDocRef, 'Professor'), name)
+    //const batch = writeBatch(database)
 
-      //const batch = writeBatch(database)
-
-      await deleteDoc(deletingDocument);
+    await deleteDoc(deletingDocument);
 
 
 
-      // const batch = writeBatch(database)
-      
-  
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data()
-          console.log(userData.Professor)
-          console.log("Name: " + name)
-          if (userData.Professor.includes(name)){
-            const index = userData.Professor.indexOf(name);
-            console.log(index)
-            userData.Professor.splice(index, 1);
-            let profs = userData.Professor
-            await setDoc(userDocRef, {Professor: profs})
-          }
-      }
+    // const batch = writeBatch(database)
+    
 
-    } catch (error) {
-      console.error('Error saving flashcards:', error)
-      alert('An error occurred while saving flashcards. Please try again.')
+    if (userDocSnap.exists()) {
+      const userData = userDocSnap.data()
+        console.log(userData.Professor)
+        console.log("Name: " + name)
+        if (userData.Professor.includes(name)){
+          const index = userData.Professor.indexOf(name);
+          console.log(index)
+          userData.Professor.splice(index, 1);
+          let profs = userData.Professor
+          await setDoc(userDocRef, {Professor: profs})
+        }
     }
 
-  };
+  } catch (error) {
+    console.log("I AM RUNNING");
+    console.error('Error saving flashcards:', error)
+    alert('An error occurred while saving flashcards. Please try again.')
+  }
+
+};
+
+const CoolCard = ({name, review, subject}) => {
 
   return (
     <CardContainer>

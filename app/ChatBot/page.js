@@ -1,5 +1,5 @@
 "use client";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Rating, Stack, TextField, Typography } from "@mui/material";
 import { useState, Fragment } from "react";
 import { database } from "../firebase";
 import { collection, deleteDoc, doc, getDoc, setDoc, writeBatch } from "firebase/firestore";
@@ -9,8 +9,56 @@ import '@/app/CSS/MovingBackground.css'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import CoolCard from "@/components/Cards/professorCards";
+import styled from 'styled-components';
 
 export default function Home() {
+  //STYLES FOR THE CARD!!
+
+  const CardContainer = styled.div`
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    transform: translateY(-10px);
+  }
+`;
+
+const CardContent = styled.div`
+  padding: 20px;
+  color: white;
+`;
+
+const CardTitle = styled.h2`
+  font-size: 24px;
+  margin-bottom: 10px;
+`;
+
+const CardDescription = styled.p`
+  font-size: 16px;
+  line-height: 1.5;
+`;
+
+const CardButton = styled.button`
+  background-color: white;
+  color: #ff6b6b;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+`;
+
   const [messages, setMessages] = useState([
     {
       role: "assistant",
@@ -179,7 +227,6 @@ export default function Home() {
     }))
   };
 
-
   return (
     <Box>
       <NavBar />
@@ -262,21 +309,35 @@ export default function Home() {
                 key={index}
                 
               >
-                <Typography>
-                  {jsonFile['professor']}
-                </Typography>
-                <Button
-                  onClick={() => handleClick(jsonFile, index)}
-                >
-                  {
-                    likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
-                  }
-                </Button>
-                {/* <CoolCard 
-                  name={jsonFile['professor']}
-                  review={jsonFile['review']}
-                  subject={jsonFile['subject']}
-                /> */}
+                <CardContainer>
+                  {/* <CardImage src="https://picsum.photos/300/200" alt="Random" /> */}
+                  <CardContent>
+                    <Stack
+                      gap={3}
+                    >
+                      <Box
+                        display={"flex"}
+                        justifyContent={"space-between"}
+                      >
+                        <CardTitle>{jsonFile["professor"]}</CardTitle>
+                        <Button
+                          onClick={() => handleClick(jsonFile, index)}
+                        >
+                          {
+                            likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
+                          }
+                        </Button>
+                      </Box>
+                      <CardDescription>
+                        {jsonFile["subject"]} 
+                        {}
+                      </CardDescription>
+                      {/* {console.log(review)} */}
+                      <Rating name="read-only" value={parseInt(jsonFile["stars"])} readOnly />
+                      <CardButton>Learn More</CardButton>
+                    </Stack>
+                  </CardContent>
+              </CardContainer>
               </Box>
             ))
             }
