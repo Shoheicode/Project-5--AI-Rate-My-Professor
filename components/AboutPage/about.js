@@ -62,7 +62,7 @@ const CoolAboutPage = () => {
       </main>
 
       <footer>
-        <p>&copy; 2024 TechNova. Innovating for a brighter tomorrow.</p>
+        <p>&copy; 2024 AStar. Innovating for a brighter tomorrow.</p>
       </footer>
 
       <style jsx global>{`
