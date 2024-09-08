@@ -62,7 +62,7 @@ const CoolAboutPage = () => {
       </main>
 
       <footer>
-        <p>&copy; 2024 AStar. Innovating for a brighter tomorrow.</p>
+        <p> 2024 AStar. Innovating for a brighter tomorrow.</p>
       </footer>
     </div>
   );
