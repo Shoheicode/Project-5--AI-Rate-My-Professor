@@ -52,7 +52,7 @@ export async function POST(req) {
 
   try {
     const results = await queryWithRetry(index, {
-      topK: 5,
+      topK: 3,
       includeMetadata: true,
       vector: embedding.data[0].embedding,
     });

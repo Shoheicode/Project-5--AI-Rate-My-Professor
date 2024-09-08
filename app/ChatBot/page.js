@@ -8,6 +8,7 @@ import NavBar from "@/components/navbar/navbar";
 import '@/app/CSS/MovingBackground.css'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import CoolCard from "@/components/Cards/professorCards";
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -259,6 +260,7 @@ export default function Home() {
             {firstMessage.data.map((jsonFile, index) => (
               <Box
                 key={index}
+                
               >
                 <Typography>
                   {jsonFile['professor']}
@@ -270,6 +272,11 @@ export default function Home() {
                     likedMessages[index] ? <FavoriteIcon/> : <FavoriteBorderIcon/>
                   }
                 </Button>
+                {/* <CoolCard 
+                  name={jsonFile['professor']}
+                  review={jsonFile['review']}
+                  subject={jsonFile['subject']}
+                /> */}
               </Box>
             ))
             }

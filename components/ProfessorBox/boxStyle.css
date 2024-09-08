@@ -1,0 +1,95 @@
+.professor-box {
+    max-width: 600px;
+    margin: 1rem auto;
+    background-color: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .professor-box:hover {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .professor-box-content {
+    display: flex;
+  }
+
+  .professor-image {
+    flex-shrink: 0;
+  }
+
+  .professor-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+
+  .professor-info {
+    padding: 1.5rem;
+    width: 100%;
+  }
+
+  .professor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .professor-department {
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    color: #6366f1;
+    font-weight: 600;
+  }
+
+  .expand-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #6b7280;
+  }
+
+  .expand-button:hover {
+    color: #374151;
+  }
+
+  .professor-name {
+    margin-top: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #111827;
+  }
+
+  .professor-email,
+  .professor-phone,
+  .professor-courses,
+  .professor-achievements {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+    color: #6b7280;
+  }
+
+  .professor-email svg,
+  .professor-phone svg,
+  .professor-courses svg,
+  .professor-achievements svg {
+    margin-right: 0.5rem;
+  }
+
+  .professor-details {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .professor-box-content {
+      flex-direction: column;
+    }
+
+    .professor-image img {
+      width: 100%;
+      height: 200px;
+    }
+  }

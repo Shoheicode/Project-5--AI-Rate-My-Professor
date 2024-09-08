@@ -5,6 +5,7 @@ import Head from 'next/head'
 import { useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import InfoCard from '@/components/infoCard/infoCard'
+import ProfessorBox from '@/components/ProfessorBox/ProfessorBox'
 import DevicesIcon from "@mui/icons-material/Devices";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
@@ -103,6 +104,16 @@ export default function Home() {
               subtitle="Watch AI search to find the professor that fits you the best"
             />
           </Grid>
+        </Box>
+        <Box>
+          <ProfessorBox professor={{
+            name: "Dr. Jane Smith",
+            email: "jane.smith@university.edu",
+            phone: "+1 (555) 123-4567",
+            department: "Computer Science",
+            courses: ["Intro to AI", "Machine Learning", "Data Structures"],
+            achievements: "2023 Outstanding Educator Award"
+          }}/>
         </Box>
       </Box>
   );
