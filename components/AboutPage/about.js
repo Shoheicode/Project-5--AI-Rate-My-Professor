@@ -46,7 +46,7 @@ const CoolAboutPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <p>At TechNova, we're not just creating technology; we're shaping the future. Our team of visionaries and innovators work tirelessly to bring cutting-edge solutions to life.</p>
+          <p>At AStar, we're not just creating technology; we're shaping the future. Our team of visionaries and innovators work tirelessly to bring cutting-edge solutions to life.</p>
           
           <h3>Our Mission</h3>
           <p>To revolutionize industries through sustainable, user-centric technology that enhances lives and pushes the boundaries of what's possible.</p>
