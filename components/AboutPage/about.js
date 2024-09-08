@@ -27,7 +27,7 @@ const CoolAboutPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          AStar
+          Team AStar
         </motion.h1>
       </header>
 
