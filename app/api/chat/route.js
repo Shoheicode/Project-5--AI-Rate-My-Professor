@@ -65,6 +65,7 @@ export async function POST(req) {
         professor: match.metadata.professor,
         stars: match.metadata.stars,
         subject: match.metadata.subject,
+        review: match.metadata.review
       });
       resultString += `
         Returned Results:

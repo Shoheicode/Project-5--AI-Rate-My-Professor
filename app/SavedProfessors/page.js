@@ -184,7 +184,10 @@ export default function Home() {
                           {val["subject"]}
                         </CardDescription>
                         <Rating name="read-only" value={parseInt(val["stars"])} readOnly />
-                        <CardButton>Learn More</CardButton>
+                        <CardDescription>
+                          {val["review"]}
+                        </CardDescription>
+                        {/* <CardButton>Learn More</CardButton> */}
                       </Stack>
                     </CardContent>
                   </CardContainer>

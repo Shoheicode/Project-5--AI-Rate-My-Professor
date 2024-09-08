@@ -5,7 +5,6 @@ import Head from 'next/head'
 import { useState } from 'react'
 import '@/app/CSS/LandingPage.css'
 import InfoCard from '@/components/infoCard/infoCard'
-import ProfessorBox from '@/components/ProfessorBox/ProfessorBox'
 import DevicesIcon from "@mui/icons-material/Devices";
 import TextsmsIcon from "@mui/icons-material/Textsms";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
@@ -60,7 +59,7 @@ export default function Home() {
             variant="outlined"
             color="inherit"
             sx={{ mt: 2 }}
-            href="/learnmore"
+            href="/about"
           >
             Learn More
           </Button>

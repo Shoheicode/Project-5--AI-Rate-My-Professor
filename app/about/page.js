@@ -27,7 +27,7 @@ export default function Home() {
           justifyContent="center"
           alignItems="center"
         >
-            <About/>
+          <About/>
       </Box>
     </Box>
   );
