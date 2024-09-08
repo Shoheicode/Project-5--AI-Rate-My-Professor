@@ -46,15 +46,15 @@ const CoolAboutPage = () => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <p>At AStar, we're not just creating technology; we're shaping the future. Our team of visionaries and innovators work tirelessly to bring cutting-edge solutions to life.</p>
+          <p>At AStar, we're not just making cool products, we are a group of students passionate about learning and building. Our team of visionaries and innovators work tirelessly to make unique products that can help out people of all ages.</p>
           
           <h3>Our Mission</h3>
-          <p>To revolutionize industries through sustainable, user-centric technology that enhances lives and pushes the boundaries of what's possible.</p>
+          <p>To create and innovate different softwares to provide substainable and useful products for people to learn.</p>
           
           <h3>Our Values</h3>
           <ul className="values-list">
             <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Innovation</motion.li>
-            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Integrity</motion.li>
+            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Growth</motion.li>
             <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Collaboration</motion.li>
             <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>Excellence</motion.li>
           </ul>
