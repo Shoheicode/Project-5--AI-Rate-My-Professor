@@ -326,8 +326,7 @@ const CardButton = styled.button`
                         </Button>
                       </Box>
                       <CardDescription>
-                        {jsonFile["subject"]} 
-                        {}
+                        {jsonFile["subject"]}
                       </CardDescription>
                       {/* {console.log(review)} */}
                       <Rating name="read-only" value={parseInt(jsonFile["stars"])} readOnly />
