@@ -15,9 +15,11 @@ AI-powered search engine that uses OpenAI and RAG to recommend professors based 
 
 2. Firebase Integration: AStar AI-Rate-My-Professor uses Firebase for secure, real-time backend services, storing user data, activity logs, and personalized saved professors. 
 
-3. Progress Tracking & Insights: AI tracks the usages of the application and helps motivate users to continue to work towards their fitness goals.
+3. Professor Rating System: 
+Ability to rate and review professors based on criteria such as teaching style, clarity, difficulty, and responsiveness.
 
-4. Exercise Recommendations: By utilizing machine learning, the app offers smarter exercise recommendations as the user’s fitness journey evolves. This ensures that the routines stay engaging, challenging, and efficient.
+4. Filtering and Sorting Professors
+Filters to sort professors by ratings, departments, difficulty levels, and popularity among students.
 
 ## Project Languages/Tools
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
