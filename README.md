@@ -13,7 +13,7 @@ AStar AI-Rate-My-Professor is a web application designed to helped assist studen
 1. Professor Search with AI Recommendations:
 AI-powered search engine that uses OpenAI and RAG to recommend professors based on student needs and preferences.
 
-2. Firebase Integration: AStar Fitness uses Firebase for secure, real-time backend services, storing user data, activity logs, and personalized workout histories. 
+2. Firebase Integration: AStar AI-Rate-My-Professor uses Firebase for secure, real-time backend services, storing user data, activity logs, and personalized saved professors. 
 
 3. Progress Tracking & Insights: AI tracks the usages of the application and helps motivate users to continue to work towards their fitness goals.
 
